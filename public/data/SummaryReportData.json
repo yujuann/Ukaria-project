@@ -1,0 +1,26 @@
+{
+  "id": 1,
+  "name": "Recutm/Haemomholds",
+  "colonInfo": [
+    {
+      "id": 1,
+      "name": "Recutm/Haemomholds",
+      "img": "/images/SummaryReport/C1.png"
+    },
+    {
+      "id": 2,
+      "name": "Recutm/Haemomholds",
+      "img": "/images/SummaryReport/C2.png"
+    },
+    {
+      "id": 3,
+      "name": "Rectum/Polyps",
+      "img": "/images/SummaryReport/C3.png"
+    },
+    {
+      "id": 4,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C4.png"
+    }
+  ]
+}
