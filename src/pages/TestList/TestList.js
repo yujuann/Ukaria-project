@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, Space } from 'antd';
@@ -7,12 +7,14 @@ import 'antd/dist/antd.css';
 
 const TestList = () => {
   const [list, setList] = useState([]);
-
-  const [roomNumber, setRoomNumber] = useState();
-
   const roomNumberHandle = e => {
     console.log(e);
     // setRoomNumber(e)
+  };
+  const navigate = useNavigate();
+
+  const goToSummary = () => {
+    navigate('/SummaryReport');
   };
 
   useEffect(() => {
@@ -70,11 +72,11 @@ const TestList = () => {
           <TestListEle>
             <TestListTop>
               <TestHospitalName>
-                <TestHospitalNameLeft>병원이름</TestHospitalNameLeft>
+                <TestHospitalNameLeft>병원이름 :</TestHospitalNameLeft>
                 <TestHospitalNameRight>서울대병원</TestHospitalNameRight>
               </TestHospitalName>
               <TestRoomList>
-                <TestRoomListLeft>방번호</TestRoomListLeft>
+                <TestRoomListLeft>방번호 :</TestRoomListLeft>
                 <TestRoomListRight>
                   <Dropdown
                     overlay={menu}
@@ -106,7 +108,13 @@ const TestList = () => {
                       <TestTablePatientNum>{patientnum}</TestTablePatientNum>
                       <TestTableDoctorName>{doctorname}</TestTableDoctorName>
                       <TestTableExamPeriod>{examperiod}</TestTableExamPeriod>
-                      <TestTableButtom>상세페이지</TestTableButtom>
+                      <TestTableButton
+                        onClick={() => {
+                          goToSummary();
+                        }}
+                      >
+                        상세페이지
+                      </TestTableButton>
                     </TestTable>
                   );
                 }
@@ -191,7 +199,7 @@ const TestListTop = styled.div`
 
 const TestHospitalName = styled.div`
   width: 50%;
-  height: 260px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -203,7 +211,7 @@ const TestHospitalName = styled.div`
 `;
 
 const TestHospitalNameLeft = styled.div`
-  margin-right: 40px;
+  margin-right: 10px;
 `;
 const TestHospitalNameRight = styled.div``;
 
@@ -218,7 +226,7 @@ const TestRoomList = styled.div`
   justify-content: center;
   align-items: flex-start;
   width: 50%;
-  height: 260px;
+  height: 100px;
   font-size: 33px;
   font-weight: 700;
   border: 1px solid #000000;
@@ -227,7 +235,7 @@ const TestRoomList = styled.div`
   padding-top: 25px;
 `;
 const TestRoomListLeft = styled.div`
-  margin-right: 40px;
+  margin-right: 10px;
 `;
 const TestRoomListRight = styled.div``;
 // ----------------------TestListBottom---------------------------
@@ -270,7 +278,7 @@ const TestTableExamPeriod = styled.li`
   padding: 20px 0 0 20px;
   font-size: 20px;
 `;
-const TestTableButtom = styled.button`
+const TestTableButton = styled.button`
   padding: 10px 0 10px 0;
   font-size: 20px;
   margin: 25px 0 0 120px;
