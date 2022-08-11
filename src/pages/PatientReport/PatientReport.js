@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useScript } from '../../hooks';
 
 const PatientReport = () => {
+  const [patientData, setPatientData] = useState({});
   const navigate = useNavigate();
   const goToSummary = () => {
     navigate('/summary');
   };
-  const [patientData, setPatientData] = useState({});
+
   useEffect(() => {
     fetch('data/PatientReportData.json')
       .then(res => res.json())
@@ -15,6 +17,26 @@ const PatientReport = () => {
         setPatientData(data);
       });
   }, []);
+  const currentUrl = window.location.href;
+  // kakao SDK import하기
+  const status = useScript('https://developers.kakao.com/sdk/js/kakao.js');
+
+  // kakao sdk 초기화하기
+  // status가 변경될 때마다 실행되며, status가 ready일 때 초기화를 시도합니다.
+  useEffect(() => {
+    if (status === 'ready' && window.Kakao) {
+      // 중복 initialization 방지
+      if (!window.Kakao.isInitialized()) {
+        // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
+        window.Kakao.init('43cb626e1e2d36adf174a3cfa844e8d0');
+      }
+    }
+  }, [status]);
+  const handleKakaoButton = () => {
+    window.Kakao.Link.sendScrap({
+      requestUrl: currentUrl,
+    });
+  };
   if (!patientData.id) return; /*조건부렌더링*/
   return (
     <PatientBigContainer>
@@ -30,6 +52,11 @@ const PatientReport = () => {
         <PointBox>
           <PointSBox>
             <ButtonMe onClick={goToSummary}>Doctor Report</ButtonMe>
+          </PointSBox>
+        </PointBox>
+        <PointBox>
+          <PointSBox>
+            <ButtonMe onClick={handleKakaoButton}>kakao 공유하기</ButtonMe>
           </PointSBox>
         </PointBox>
       </PointContainer>
