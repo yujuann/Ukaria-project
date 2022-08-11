@@ -21,6 +21,31 @@
       "id": 4,
       "name": "Sigmoid Colon Polyps",
       "img": "/images/SummaryReport/C4.png"
+    },
+    {
+      "id": 5,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C5.png"
+    },
+    {
+      "id": 6,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C6.png"
+    },
+    {
+      "id": 7,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C7.png"
+    },
+    {
+      "id": 8,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C8.png"
+    },
+    {
+      "id": 9,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C9.png"
     }
   ]
 }

@@ -1,8 +1,21 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import ModalSummary from './ModalSummary';
+import Modal from 'react-modal';
+
+// import PatientReport from '../Patient/PatientReport';
 
 const SummaryReport = () => {
+  const navigate = useNavigate();
+  const goToPatient = () => {
+    navigate('/patient');
+  };
+  const [modalIsOpen, setIsOpen] = useState(false);
+  // const PatientReport = () => {
+  //   document.location.href('/');
+  // };
   const [reportData, setReportData] = useState({});
   useEffect(() => {
     fetch('data/SummaryReportData.json')
@@ -12,31 +25,42 @@ const SummaryReport = () => {
       });
   }, []);
 
+  function afterOpenModal() {}
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   if (!reportData.id) return;
 
   return (
     <div>
       <NavContainer>
         <TopContainer>
-          <CompanyImages src="/images/SummaryReport/ikaria.jpeg" />
-          <CompanyTitle>Sena </CompanyTitle>
+          <CompanyImages src="/images/SummaryReport/endo.png" />
+          <CompanyTitle src="/images/SummaryReport/sena.png" />
           <CompanyName>Medical Progress Report</CompanyName>
           <HospitalLogo src="/images/SummaryReport/seoul.jpeg" />
         </TopContainer>
       </NavContainer>
       <SummaryReportContainer>
         <MiddleContainer>
-          <DearDoctor>
-            Doctor : LEE SHIN HYUN <br />
-            Date of Time: 06-AUG-2022 21:43:20 <br />
-            Patient Patient Number: SNUH19961112 <br />
-            HospitalNam : SNUH.SEOUL
-          </DearDoctor>
           <PatientReport>
-            <ButtonIs>Patient Report</ButtonIs>
+            <ButtonIs onClick={goToPatient}>Patient Report</ButtonIs>
           </PatientReport>
           <ReportShare>
-            <ShareKaKao>환자 공유하기</ShareKaKao>
+            <ShareKaKao onClick={() => setIsOpen(!modalIsOpen)}>
+              환자정보 미리보기
+            </ShareKaKao>
+            <Modal
+              isOpen={modalIsOpen}
+              onAfterOpen={afterOpenModal}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
+              style={styleModal}
+            >
+              <ModalSummary />
+              <ModalClose onClick={() => setIsOpen(false)}>X</ModalClose>
+            </Modal>
           </ReportShare>
         </MiddleContainer>
 
@@ -131,8 +155,14 @@ const SummaryReport = () => {
   );
 };
 
+const ModalClose = styled.button`
+  width: 20px;
+  height: 25px;
+`;
 const PhotoOne = styled.div`
   display: flex;
+  width: 100%;
+  overflow-x: scroll;
 `;
 const SummaryReportContainer = styled.div`
   padding: 50px;
@@ -143,17 +173,17 @@ const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #263343;
   padding: 8px 19px;
   font-size: 45px;
-  color: white;
+  color: #263343;
 `;
 const CompanyImages = styled.img`
   width: 140px;
+  background-color: white;
 `;
 
-const CompanyTitle = styled.div`
-  text-align: start;
+const CompanyTitle = styled.img`
+  width: 140px;
 `;
 const CompanyName = styled.div`
   text-align: right;
@@ -166,15 +196,35 @@ const MiddleContainer = styled.div`
   justify-content: flex-start;
   margin-top: 30px;
 `;
-const DearDoctor = styled.p`
-  background-color: lightgray;
-  margin-left: 30px;
-`;
+
 const PatientReport = styled.div`
   margin-left: 50px;
+  margin-right: 30px;
 `;
 const ButtonIs = styled.button`
- background-color: #4CAF50; /* Green */
+  font-size: 17px;
+    line-height: 1.23536;
+    font-weight: 400;
+    letter-spacing: -.022em;
+    font-family: SF Pro Text,SF Pro Icons,AOS Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    text-align: left;
+    box-sizing: border-box;
+    cursor: pointer;
+    min-height: 4.88235rem;
+    color: #1d1d1f;
+    border: 1px solid #d2d2d7;
+    background-color: hsla(0,0%,100%,.8);
+    outline: none;
+    
+ /* background-color: #4CAF50;
   border: none;
   color: white;
   padding: 16px 32px;
@@ -187,33 +237,37 @@ const ButtonIs = styled.button`
   cursor: pointer;
   &:hover{
         background: yellow;
-    }
+    } */
 }`;
 const ReportShare = styled.div`
   margin-right: 40px;
 `;
 const ShareKaKao = styled.button`
-  border: none;
-  color: black;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  border: 2px solid #555555;
+  font-size: 17px;
+  line-height: 1.23536;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  font-family: SF Pro Text, SF Pro Icons, AOS Icons, Helvetica Neue, Helvetica,
+    Arial, sans-serif;
+  font-weight: 600;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+  text-align: left;
+  box-sizing: border-box;
   cursor: pointer;
-  &:hover {
-    background: yellow;
-  }
+  min-height: 4.88235rem;
+  color: #1d1d1f;
+  border: 1px solid #d2d2d7;
+  background-color: hsla(0, 0%, 100%, 0.8);
 `;
 const BottomContainer = styled.div`
   margin: 0 auto;
   flex-direction: column;
-
-  /* width: 1500px;
-  height: 1800px; */
 `;
 const BottomBox = styled.div`
   padding-top: 40px;
@@ -236,12 +290,6 @@ const CoverList = styled.div`
   border-top: 2px solid black;
 `;
 const InfoContentA = styled.div``;
-
-// const MiniTitle = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   margin-top: 40px;
-// `;
 const InfoTitle = styled.div`
   display: flex;
   padding: 5px;
@@ -259,17 +307,7 @@ const InfoSpace = styled.p`
   display: inline-block;
 `;
 const InfoContentB = styled.div``;
-const InfoPhoto = styled.button`
-  /* padding: 20px;
-  width: 90px;
-  height: 100px;
-  border: 4px solid red; */
 
-  width: 650px;
-  border: 1px solid red;
-  margin: 0 auto;
-  padding-top: 10px;
-`;
 const OneCoverList = styled.div`
   border-top: 2px solid black;
   border-bottom: 2px solid black;
@@ -293,12 +331,44 @@ const TwoCoverList = styled.div`
 
 const PhotoList = styled.div``;
 const PhotoTitle = styled.div`
-  font-size: 26px;
+  font-size: 30px;
   font-weight: bold;
   padding: 5px;
   margin-top: 20px;
 `;
 const PhotoImages = styled.img`
   width: 350px;
+  padding: 5px;
+  display: flex;
+  justify-content: last baseline;
 `;
+const styleModal = {
+  overlay: {
+    background: 'rgba(0,0,0,0.56)',
+    overflow: 'hidden scroll',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 10,
+  },
+  content: {
+    width: '400px',
+    height: '500px',
+    position: 'absolute',
+
+    display: 'flex',
+    justifyContent: 'center',
+    background: '#FFFF',
+    overflow: 'auto',
+    top: '19vh',
+    left: '38vw',
+    right: '38vw',
+    bottom: '19vh',
+    borderRadius: '14px',
+    outline: 'none',
+    zIndex: 10,
+  },
+};
 export default SummaryReport;
