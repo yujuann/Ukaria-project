@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useScript } from '../../hooks';
+//
 
 const PatientReport = () => {
   const [patientData, setPatientData] = useState({});
@@ -17,6 +18,10 @@ const PatientReport = () => {
         setPatientData(data);
       });
   }, []);
+  // const location = useLocation();
+
+  // const goToPrev = () => {
+  //   navigate(`/Report/${location.search}`);
   const currentUrl = window.location.href;
   // kakao SDK import하기
   const status = useScript('https://developers.kakao.com/sdk/js/kakao.js');
@@ -32,11 +37,51 @@ const PatientReport = () => {
       }
     }
   }, [status]);
+
+  // const handleKakaoButton = () => {
+  //   window.Kakao.Link.sendScrap({
+  //     requestUrl: currentUrl,
+  //   });
+  // };
+  // }; //pdf 캡처 기능 넣어봄 //
+
+  // const onSaveAs = (uri, fileName) => {
+  //   console.log('onSaveAs');
+  //   let link = document.createElement('a');
+  //   document.body.appendChild(link);
+  //   link.href = uri;
+  //   link.download = fileName;
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
   const handleKakaoButton = () => {
-    window.Kakao.Link.sendScrap({
-      requestUrl: currentUrl,
+    window.Kakao.Share.sendDefault({
+      objectType: 'text',
+      text: `${currentUrl}`,
+      link: {
+        mobileWebUrl: `${currentUrl}`,
+        webUrl: `${currentUrl}`,
+      },
     });
   };
+
+  // const onCapture = () => {
+  //   console.log('onCapture');
+  //   html2canvas(document.getElementById('PointWBox')).then(canvas => {
+  //     onSaveAs(canvas.toDataURL('image/png'), 'image-download.png');
+  //   });
+  // };
+
+  // const onSaveAs = (uri, fileName) => {
+  //   console.log('onSaveAs');
+  //   let link = document.createElement('a');
+  //   document.body.appendChild(link);
+  //   link.href = uri;
+  //   link.download = fileName;
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
+
   if (!patientData.id) return; /*조건부렌더링*/
   return (
     <PatientBigContainer>
@@ -59,6 +104,10 @@ const PatientReport = () => {
             <ButtonMe onClick={handleKakaoButton}>kakao 공유하기</ButtonMe>
           </PointSBox>
         </PointBox>
+
+        {/* <EmailShareButton subject={currentUrl} body="">
+          <ButtonMME onClick={onCapture}>PdfButton</ButtonMME>
+        </EmailShareButton> */}
       </PointContainer>
       <CancerBox>
         <CancerEvent>환자 검사 결과레포트 </CancerEvent>
@@ -148,6 +197,8 @@ const PatientReport = () => {
 };
 
 export default PatientReport;
+
+// const EmailShareButton = styled.div``;
 const CancerBox = styled.div`
   padding-top: 40px;
 `;
@@ -181,7 +232,6 @@ const PhotoOneA = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
-}
 `;
 const PatientBigContainer = styled.div``;
 const PatientSmallContainer = styled.div``;
@@ -240,6 +290,7 @@ const ButtonMe = styled.button`
   outline: none;
 `;
 
+// const PointWBox = styled.div``;
 const CancerContainer = styled.div`
   display: flex;
   width: 1000px;
