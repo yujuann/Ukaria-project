@@ -1,0 +1,51 @@
+{
+  "id": 1,
+  "name": "Recutm/Haemomholds",
+  "colonInfo": [
+    {
+      "id": 1,
+      "name": "Recutm/Haemomholds",
+      "img": "/images/SummaryReport/C1.png"
+    },
+    {
+      "id": 2,
+      "name": "Recutm/Haemomholds",
+      "img": "/images/SummaryReport/C2.png"
+    },
+    {
+      "id": 3,
+      "name": "Rectum/Polyps",
+      "img": "/images/SummaryReport/C3.png"
+    },
+    {
+      "id": 4,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C4.png"
+    },
+    {
+      "id": 5,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C5.png"
+    },
+    {
+      "id": 6,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C6.png"
+    },
+    {
+      "id": 7,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C7.png"
+    },
+    {
+      "id": 8,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C8.png"
+    },
+    {
+      "id": 9,
+      "name": "Sigmoid Colon Polyps",
+      "img": "/images/SummaryReport/C9.png"
+    }
+  ]
+}
